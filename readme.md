@@ -194,3 +194,63 @@ npm run start
 npm run dev
 # 이를 동시에 수행하고 싶다면 다음의 명령어를 입력한다.
 ```
+
+## Type
+
+### customType 밑 폴더에 타입을 선언해서 관리
+
+#### express의 특정 필드에 키를 추가하고싶으면 customType 부분에서 처리
+
+### tsconfig.json에 customType에 대한 정보를 저장
+
+```json
+{
+  "compilerOptions" : {
+    ...
+    "typeRoots": [
+      "./src/customType",
+      "./node_modules/@types"
+    ]
+    ...
+  }
+}
+```
+
+## Database
+
+### sqlScript.sql
+
+```sql
+create database DATABASE_NAME default character set utf8 collate utf8_general_ci;
+
+CREATE USER 'root'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost';
+FLUSH PRIVILEGES;
+
+CREATE TABLE user_auth_info (
+  user_id        INT NOT NULL AUTO_INCREMENT,
+  email     VARCHAR(255) NOT NULL,
+  pwd    VARCHAR(100) NOT NULL,
+  nick_name VARCHAR(255) NOT NULL,
+  created_at timestamp default current_timestamp,
+  updated_at timestamp default current_timestamp on update current_timestamp,
+  PRIMARY KEY(user_id)
+);
+
+INSERT INTO user_auth_info (user_id, email, pwd, nick_name)
+	   	    VALUE(NULL, 'admin',  'admin', 'admin');
+```
+
+## env
+
+```
+PORT=3000
+SECRET=SOME_SECRET_HERE
+
+host=127.0.0.1
+user=root
+password=password
+database=DATABASE_NAME
+```
+
+## Enjoy Express.ts
